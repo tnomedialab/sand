@@ -1,95 +1,100 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="sandApp">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>MPEG-DASH SAND</title>
 <meta name="keywords" content="DASH, MPEG-DASH, SAND, Server And Network-assisted DASH" />
 <meta name="description" content="This explains what MPEG-DASH SAND is about and provides a SAND  demonstration" />
 <link href="//fonts.googleapis.com/css?family=Varela" rel="stylesheet" />
 <link href="stylesheets/default.css" rel="stylesheet" media="all" />
+<link href="stylesheets/custom.css" rel="stylesheet" media="all" />
 <link href="stylesheets/fonts.css" rel="stylesheet" media="all" />
 
 <!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
 
-<div id="wrapper">
+<div id="wrapper" ng-app="sandApp">
   <div id="banner">
     <div class="container">
       <div class="title">
-        <h2>MPEG-DASH SAND</h2>
-        <span class="byline">Server And Network-Assisted DASH</span>
+				<h2>MPEG-DASH SAND</h2>
+				<h3>presented by <a href="//tnomedialab.github.io">TNO Medialab</a></h3>
       </div>
     </div>
-  </div>
-  <div id="extra" class="container">
-    <div class="title">
-      <h2>What is SAND ?</h2>
-      <span class="byline">A.k.a. ISO/IEC 23009 DASH part 5 SAND</span>
-    </div>
-    <div id="three-column">
-      <div class="boxA">
-        <div class="box"> <span class="fa fa-envelope-o"></span>
-          <p><strong>SAND</strong> defines a list of messages a DASH client and a HTTP server can exchange.</p>
-        </div>
-      </div>
-      <div class="boxB">
-        <div class="box"> <span class="fa fa-exchange"></span>
-          <p><strong>SAND</strong> defines protocols for a HTTP server and a DASH client to exchange the SAND messages</p>
-        </div>
-      </div>
-      <div class="boxC">
-        <div class="box"> <span class="fa fa-flash"></span>
-          <p>By exhanging information, HTTP servers and DASH clients can improve their performances</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div id="featured">
+	</div>
+  <div id="extra">
     <div class="container">
+      <div class="title">
+        <h2>What is SAND ?</h2>
+        <span class="byline">a.k.a. ISO/IEC 23009 DASH part 5 Server And Network-Assisted DASH</span>
+      </div>
+      <div id="three-column">
+        <div class="boxA">
+          <div class="box"> <span class="fa fa-envelope-o"></span>
+            <p><strong>SAND</strong> defines a list of messages a DASH client and a <strong>SAND</strong>-enabled HTTP server (DANE) can exchange.</p>
+          </div>
+        </div>
+        <div class="boxB">
+          <div class="box"> <span class="fa fa-exchange"></span>
+            <p><strong>SAND</strong> defines protocols for a DANE and a DASH client to exchange the <strong>SAND</strong> messages</p>
+          </div>
+        </div>
+        <div class="boxC">
+          <div class="box"> <span class="fa fa-flash"></span>
+            <p>DANEs can improve the delivery of DASH segments and the DASH clients the user's experience.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+	<div id="featured">
+	  <div class="container">
       <div class="title">
         <h2>Demo</h2>
         <span class="byline">Real-time metrics reporting via WebSocket</span>
       </div>
       <div id="two-column">
-        <div class="tbox1">
-          <div class="box"> 
-	    <div class="title">DASH player</div>
-	  </div>
+        <div class="tbox1" ng-controller="sandDashCtrl">
+					<div class="box">
+						<div class="title">DASH player</div>
+						<video class="video-insert" dash-player>
+							<source src="{{mpd_url}}" type="application/dash+xml"/>
+						</video>
+					</div>
         </div>
         <div class="tbox2">
-          <div class="box"> 
-	    <div class="title">Real-time metrics</div>
-          </div>
+					<div class="box">
+    	 	  	<div class="title">Metrics</div>
+    	 	  	<div class="mini-dashboard"></div>
+					</div>
         </div>
       </div>
+      <ul class="actions">
+        <li><a href="#" class="button">Start</a></li>
+      </ul>
     </div>
-    <ul class="actions">
-      <li><a href="#" class="button">Start</a></li>
-    </ul>
   </div>
-  <div id="page" class="container">
-    <div class="title">
-      <h2>Conformance Testing</h2>
-      <span class="byline">
-				Validate your SAND messages
-			  <p>Service Offline</p>
-			</span>
-    </div>
-    <div id="two-column">
-      <div class="tbox1">
-        <div class="box"> 
-          <div class="title">Type your message</div>
-        </div>
+	<div id="extra">
+	  <div class="container">
+      <div class="title">
+        <h2>Going futher...</h2>
+     	  <span class="byline">More about SAND</span>
       </div>
-      <div class="tbox2">
-        <div class="box"> 
-          <div class="title">Result</div>
-        </div>
-      </div>
-    </div>
-    <ul class="actions">
-      <li><a href="#" class="button">Read more</a></li>
-    </ul>
+      <div id="further-links">
+        <ul class="actions">
+					<li>
+					  <a href="#" class="button">Standard</a>
+            <a href="#" class="button">Conformance</a>
+					</li>
+    	  </ul>
+     </div>
+   </div>
   </div>
 </div>
 <div id="copyright" class="container">
-	<p>&copy; <a href="//tno.nl">TNO</a>. All rights reserved. | Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>.</p>
+  <p>&copy; <a href="//tno.nl">TNO</a>. All rights reserved. | Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>.</p>
 </div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="//cdn.dashjs.org/latest/dash.all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular.min.js"></script>
+<script src="js/sandApp.js"></script>
+
