@@ -15,11 +15,11 @@
   <div id="banner">
     <div class="container">
       <div class="title">
-				<h2>MPEG-DASH SAND</h2>
-				<h3>presented by <a href="//tnomedialab.github.io">TNO Medialab</a></h3>
+        <h2>MPEG-DASH SAND</h2>
+        <h3>presented by <a href="//tnomedialab.github.io">TNO Medialab</a></h3>
       </div>
     </div>
-	</div>
+  </div>
   <div id="extra">
     <div class="container">
       <div class="title">
@@ -45,46 +45,46 @@
       </div>
     </div>
   </div>
-	<div id="featured">
-	  <div class="container">
+  <div id="featured" ng-controller="sandDashCtrl">
+    <div class="container">
       <div class="title">
         <h2>Demo</h2>
         <span class="byline">Real-time metrics reporting via WebSocket</span>
       </div>
       <div id="two-column">
-        <div class="tbox1" ng-controller="sandDashCtrl">
-					<div class="box">
-						<div class="title">DASH player</div>
-						<video class="video-insert" dash-player>
-							<source src="{{mpd_url}}" type="application/dash+xml"/>
-						</video>
-					</div>
+        <div class="tbox1">
+          <div class="box">
+            <div class="title">DASH player</div>
+            <video class="video-insert" dash-player>
+              <source src="{{mpd_url}}" type="application/dash+xml"/>
+            </video>
+          </div>
         </div>
         <div class="tbox2">
-					<div class="box">
-    	 	  	<div class="title">Metrics</div>
-    	 	  	<div class="mini-dashboard"></div>
-					</div>
+          <div class="box">
+             <div class="title">Metrics</div>
+             <div class="mini-dashboard"></div>
+          </div>
         </div>
       </div>
       <ul class="actions">
-        <li><a href="#" class="button">Start</a></li>
+        <li><a href="" ng-click="startVideo()" class="button">Start</a></li>
       </ul>
     </div>
   </div>
-	<div id="extra">
-	  <div class="container">
+  <div id="extra">
+    <div class="container">
       <div class="title">
         <h2>Going futher...</h2>
-     	  <span class="byline">More about SAND</span>
+         <span class="byline">More about SAND</span>
       </div>
       <div id="further-links">
         <ul class="actions">
-					<li>
-					  <a href="#" class="button">Standard</a>
+          <li>
+            <a href="#" class="button">Standard</a>
             <a href="#" class="button">Conformance</a>
-					</li>
-    	  </ul>
+          </li>
+        </ul>
      </div>
    </div>
   </div>
