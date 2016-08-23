@@ -61,7 +61,7 @@
         <div class="tbox1">
           <div class="box">
             <div class="title">DASH player</div>
-            <video class="video-insert" autoplay controls="true" dash-player>
+            <video class="video-insert" controls="true" dash-player>
 							<source src="http://dash.edgesuite.net/dash264/TestCases/1a/sony/SNE_DASH_SD_CASE1A_REVISED.mpd" type="application/dash+xml"/>
 							<!--source src="{{mpd_url}}" type="application/dash+xml"/-->
             </video>
@@ -81,7 +81,7 @@
     </div>
 		<div>
       <ul class="content">
-        <li><a href="" ng-click="startVideo()" class="button">Start</a></li>
+        <li><a href="" ng-click="demoStarted || startDemo()" class="button">Start</a></li>
       </ul>
 	  </div>
   </div>

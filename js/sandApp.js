@@ -4,60 +4,65 @@ sandApp.controller('sandDashCtrl', ['$scope', '$sce', function($scope, $sce) {
     $scope.mpd_url = $sce.trustAsResourceUrl("http://dash.edgesuite.net/dash264/TestCases/1a/sony/SNE_DASH_SD_CASE1A_REVISED.mpd");
 
     $scope.video = [];
-    player = [];
     $scope.metrics = [];
+    $scope.demoStarted = false;
+    $scope.connectedToDane = false;
+    player = [];
     
-    $scope.startVideo = function() {
+    $scope.startDemo = function() {
+
+        $scope.demoStarted = true;
+
         player.play();
+        player.on(dashjs.MediaPlayer.events.METRICS_CHANGED, $.throttle(1000, sendMetric));
+        player.on(dashjs.MediaPlayer.events.ERROR, onError);
+
+        var client_id = uuid.v4();
+
+        // SAND channel set-up
+        var ws = new WebSocket('ws://dane-demo.herokuapp.com?client_id=' + client_id);
+
+        ws.onopen = function () {
+            console.log('SAND|INFO|Connected to DANE !');
+            $scope.connectedToDate = true;
+        };
+
+        // Log errors
+        ws.onerror = function (e) {
+            console.log('SAND|ERROR|WebSocket Error ' + e);
+        };
+
+        // Log messages from the server
+        ws.onmessage = function (e) {
+            console.log('SAND|INFO|DANE: ' + e.data);
+            var message;
+            try {
+                message = JSON.parse(e.data);
+                $scope.metrics = message;
+                $scope.$apply();
+            } catch (err) {
+                console.log('SAND|ERROR|No JSON data');
+                console.log('SAND|ERROR|' + err);
+            }
+        };
+  
+
     };
     
-    var client_id = uuid.v4();
-
-    // SAND channel set-up
-    var ws = new WebSocket('ws://dane-demo.herokuapp.com?client_id=' + client_id);
-
-    var DANE_connection = false;
-    ws.onopen = function () {
-        console.log('SAND|INFO|Connected to DANE !');
-        DANE_connection = true;
-    };
-
-    // Log errors
-    ws.onerror = function (e) {
-        console.log('SAND|ERROR|WebSocket Error ' + e);
-    };
-
-    // Log messages from the server
-    ws.onmessage = function (e) {
-        console.log('SAND|INFO|DANE: ' + e.data);
-        var message;
-        try {
-            message = JSON.parse(e.data);
-            $scope.metrics = message;
-            $scope.$apply();
-        } catch (err) {
-            console.log('SAND|ERROR|No JSON data');
-            console.log('SAND|ERROR|' + err);
-        }
-    };
-  
     function onError(e) {
         console.log("SAND|ERROR|" + e);
     }
 
     function sendMetric(e) {
         var metrics = player.getMetricsFor("video");
-        if(DANE_connection) ws.send(JSON.stringify(metrics));
+        if($scope.connectedToDane) ws.send(JSON.stringify(metrics));
     }
 
     $scope.$watch('video', function() {
         player = dashjs.MediaPlayerFactory.create($scope.video[0]);
-        player.on(dashjs.MediaPlayer.events.METRICS_CHANGED, $.throttle(1000, sendMetric));
-        player.on(dashjs.MediaPlayer.events.ERROR, onError);
     });
     
     $scope.getTotal = function(what) {
-        console.log("SAND|" + JSON.stringify($scope.metrics));
         switch(what) {
             case "clients": 
                 return $scope.metrics.length;
