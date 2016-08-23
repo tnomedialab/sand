@@ -7,8 +7,7 @@
 <link href="//fonts.googleapis.com/css?family=Varela" rel="stylesheet" />
 <link href="stylesheets/default.css" rel="stylesheet" media="all" />
 <link href="stylesheets/custom.css" rel="stylesheet" media="all" />
-<link href="stylesheets/fonts.css" rel="stylesheet" media="all" />
-
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 <!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
 
 <div id="wrapper" ng-app="sandApp">
@@ -50,20 +49,20 @@
       <div class="title">
         <h2>Demo</h2>
         <span class="byline">Real-time metrics reporting via WebSocket</span>
-				<p>Every DASH player connects to the same DANE and sends metrics to it. 
-				The DASH metrics collected by each DASH client are sent over a WebSocket 
-				connection to the DANE. The goal is to allow a content provider, a CDN 
-				provider, to detect issues in the delivery of DASH content and react as 
-				quickly as posssible to remediate. The data displayed below is a 
-				summary derived from the DASH metrics collected in real-time by the DANE.</p>
+        <p>Every DASH player connects to the same DANE and sends metrics to it. 
+        The DASH metrics collected by each DASH client are sent over a WebSocket 
+        connection to the DANE. The goal is to allow a content provider, a CDN 
+        provider, to detect issues in the delivery of DASH content and react as 
+        quickly as posssible to remediate. The data displayed below is a 
+        summary derived from the DASH metrics collected in real-time by the DANE.</p>
       </div>
       <div id="two-column">
         <div class="tbox1">
           <div class="box">
             <div class="title">DASH player</div>
-            <video class="video-insert" controls="false" dash-player>
-							<source src="http://dash.edgesuite.net/dash264/TestCases/1a/sony/SNE_DASH_SD_CASE1A_REVISED.mpd" type="application/dash+xml"/>
-							<!--source src="{{mpd_url}}" type="application/dash+xml"/-->
+            <video class="video-insert" dash-player>
+              <source src="http://dash.edgesuite.net/dash264/TestCases/1a/sony/SNE_DASH_SD_CASE1A_REVISED.mpd" type="application/dash+xml"/>
+              <!--source src="{{mpd_url}}" type="application/dash+xml"/-->
             </video>
           </div>
         </div>
@@ -71,19 +70,27 @@
           <div class="box">
              <div class="title">DANE</div>
              <div class="mini-dashboard">
-						   <span>Nb clients: {{getTotal("clients")}}</span>
-						   <span>DL segments: {{getTotal("segments")}}</span>
-						   <span>DL data: {{getTotal("data") | filesize}}</span>
-						 </div>
+               <ul>
+                 <li>
+                   <span class="fa fa-2x fa-users">: {{getTotal("clients")}}</span>
+                 </li>
+                 <li>
+                   <span class="fa fa-2x fa-server">: {{getTotal("segments")}}</span>
+                 </li>
+                 <li>
+                   <span class="fa fa-2x fa-download">: {{getTotal("data") | filesize}}</span>
+                 </li>
+               </ul>
+             </div>
           </div>
         </div>
       </div>
     </div>
-		<div>
+    <div>
       <ul class="content">
         <li><a href="" ng-click="demoStarted || startDemo()" class="button">Start</a></li>
       </ul>
-	  </div>
+    </div>
   </div>
   <div id="extra">
     <div class="container">

@@ -56,8 +56,6 @@ sandApp.controller('sandDashCtrl', ['$scope', '$sce', function($scope, $sce) {
                 console.log('SAND|ERROR|' + err);
             }
         };
-  
-
     };
     
 
