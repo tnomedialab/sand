@@ -10,12 +10,23 @@ sandApp.controller('sandDashCtrl', ['$scope', '$sce', function($scope, $sce) {
     player = [];
     
     $scope.startDemo = function() {
+        
+        function onError(e) {
+            console.log("SAND|ERROR|" + e);
+        }
+
+        function sendMetric(e) {
+            var metrics = player.getMetricsFor("video");
+            if($scope.connectedToDane) ws.send(JSON.stringify(metrics));
+        }
 
         $scope.demoStarted = true;
 
-        player.play();
-        player.on(dashjs.MediaPlayer.events.METRICS_CHANGED, $.throttle(1000, sendMetric));
+        player = dashjs.MediaPlayerFactory.create($scope.video[0]);
+        player.on(dashjs.MediaPlayer.events.METRICS_CHANGED,
+                  $.throttle(1000, sendMetric));
         player.on(dashjs.MediaPlayer.events.ERROR, onError);
+        player.play();
 
         var client_id = uuid.v4();
 
@@ -24,7 +35,7 @@ sandApp.controller('sandDashCtrl', ['$scope', '$sce', function($scope, $sce) {
 
         ws.onopen = function () {
             console.log('SAND|INFO|Connected to DANE !');
-            $scope.connectedToDate = true;
+            $scope.connectedToDane = true;
         };
 
         // Log errors
@@ -49,19 +60,7 @@ sandApp.controller('sandDashCtrl', ['$scope', '$sce', function($scope, $sce) {
 
     };
     
-    function onError(e) {
-        console.log("SAND|ERROR|" + e);
-    }
 
-    function sendMetric(e) {
-        var metrics = player.getMetricsFor("video");
-        if($scope.connectedToDane) ws.send(JSON.stringify(metrics));
-    }
-
-    $scope.$watch('video', function() {
-        player = dashjs.MediaPlayerFactory.create($scope.video[0]);
-    });
-    
     $scope.getTotal = function(what) {
         switch(what) {
             case "clients": 
