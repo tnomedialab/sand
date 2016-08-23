@@ -24,7 +24,7 @@
     <div class="container">
       <div class="title">
         <h2>What is SAND ?</h2>
-        <span class="byline">a.k.a. ISO/IEC 23009 DASH part 5 Server And Network-Assisted DASH</span>
+        <span class="byline">a.k.a. ISO/IEC 23009 DASH part 5 Server And Network-assisted DASH</span>
       </div>
       <div id="three-column">
         <div class="boxA">
@@ -50,6 +50,12 @@
       <div class="title">
         <h2>Demo</h2>
         <span class="byline">Real-time metrics reporting via WebSocket</span>
+				<p>Every DASH player connects to the same DANE and sends metrics to it. 
+				The DASH metrics collected by each DASH client are sent over a WebSocket 
+				connection to the DANE. The goal is to allow a content provider, a CDN 
+				provider, to detect issues in the delivery of DASH content and react as 
+				quickly as posssible to remediate. The data displayed below is a 
+				summary derived from the DASH metrics collected in real-time by the DANE.</p>
       </div>
       <div id="two-column">
         <div class="tbox1">
@@ -63,7 +69,7 @@
         </div>
         <div class="tbox2">
           <div class="box">
-             <div class="title">Real-time DANE status</div>
+             <div class="title">DANE</div>
              <div class="mini-dashboard">
 						   <span>Nb clients: {{getTotal("clients")}}</span>
 						   <span>DL segments: {{getTotal("segments")}}</span>
@@ -72,10 +78,12 @@
           </div>
         </div>
       </div>
-      <ul class="actions">
+    </div>
+		<div>
+      <ul class="content">
         <li><a href="" ng-click="startVideo()" class="button">Start</a></li>
       </ul>
-    </div>
+	  </div>
   </div>
   <div id="extra">
     <div class="container">
