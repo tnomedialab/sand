@@ -64,7 +64,11 @@
         <div class="tbox2">
           <div class="box">
              <div class="title">Metrics</div>
-             <div class="mini-dashboard"></div>
+             <div class="mini-dashboard">
+						   <span>Nb clients: {{getTotal("clients")}}</span>
+						   <span>DL segments: {{getTotal("segments")}}</span>
+						   <span>DL data: {{getTotal("data") | filesize}}</span>
+						 </div>
           </div>
         </div>
       </div>
@@ -99,5 +103,8 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/node-uuid/1.4.7/uuid.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+
+<script src="//cdn.filesizejs.com/filesize.min.js"></script>
 <script src="js/sandApp.js"></script>
 
