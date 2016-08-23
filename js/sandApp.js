@@ -3,47 +3,57 @@ var sandApp = angular.module('sandApp', []);
 sandApp.controller('sandDashCtrl', ['$scope', '$sce', function($scope, $sce) {
     $scope.mpd_url = $sce.trustAsResourceUrl("http://dash.edgesuite.net/dash264/TestCases/1a/sony/SNE_DASH_SD_CASE1A_REVISED.mpd");
 
-    //var client_id = uuid.v4();
-    var client_id = "allo-123";
+    $scope.video = [];
+    player = [];
+    
+    $scope.startVideo = function() {
+        player.play();
+    };
+    
+    var client_id = uuid.v4();
 
     // SAND channel set-up
-    var ws = new WebSocket('ws://localhost:8080?client_id=' + client_id);
+    var ws = new WebSocket('ws://dane-demo.herokuapp.com?client_id=' + client_id);
 
     var DANE_connection = false;
     ws.onopen = function () {
-        console.log('DASH|INFO|Connected to DANE !');
+        console.log('SAND|INFO|Connected to DANE !');
         DANE_connection = true;
     };
 
     // Log errors
     ws.onerror = function (e) {
-        console.log('DASH|WebSocket Error ' + e);
+        console.log('SAND|ERROR|WebSocket Error ' + e);
     };
 
     // Log messages from the server
     ws.onmessage = function (e) {
-        console.log('DASH|DANE: ' + e.data);
+        console.log('SAND|INFO|DANE: ' + e.data);
     };
   
     function onError(e) {
-        console.log("DASH|ERROR|" + e);
+        console.log("SAND|ERROR|" + e);
     }
 
-    /*function metricChanged(e) {
+    function sendMetric(e) {
         var metrics = player.getMetricsFor("video");
-        console.log(metrics);
         if(DANE_connection) ws.send(JSON.stringify(metrics));
-    }*/
+    }
+
+    $scope.$watch('video', function() {
+        player = dashjs.MediaPlayerFactory.create($scope.video[0]);
+        player.on(dashjs.MediaPlayer.events['METRICS_CHANGED'], $.throttle(1000, sendMetric));
+        player.on(dashjs.MediaPlayer.events['ERROR'], onError);
+    });
 }]);
 
 sandApp.directive('dashPlayer', function() {
     function link(scope, element, attrs) {
-        var player = dashjs.MediaPlayerFactory.create(element);
-        //player.addEventListener(MediaPlayer.events.ERROR, onError.bind(this));
-        //player.addEventListener(MediaPlayer.events.METRIC_CHANGED, $.throttle(1000, metricChanged.bind(this)) );
+        scope.video = element;
     }
     
     return {
-        link: link
+        link: link,
+        scope: false
     };
 });
