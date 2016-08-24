@@ -318,6 +318,14 @@
 		position: relative;
 		padding: 3em 0em;
 	}
+	
+	#header-logo
+	{
+		top: 0;
+		left: 0;
+		max-height: 2em;
+		vertical-align: middle;
+	}
 
 /*********************************************************************************/
 /* Logo                                                                          */
