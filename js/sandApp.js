@@ -74,6 +74,33 @@ sandApp.controller('sandDashCtrl', ['$scope', '$sce', function($scope, $sce) {
         }
         return "";
     };
+
+    $scope.getBuffersStat = function(what) {
+        var a = $scope.metrics.map(
+            function(c) {
+                if("buffer_level" in c) 
+                    return c.buffer_level.level; 
+            }
+        );
+        if(a.length) {
+            switch(what) {
+                case "min": 
+                    return _.min(a);
+                case "max": 
+                    return _.max(a);
+                case "mean":
+                    return _.reduce(
+                        a, 
+                        function(memo, num) {
+                            return memo + num;
+                        }, 
+                        0) / (a.length === 0 ? 1 : a.length);
+                default:
+                    console.log("SAND|ERROR|Unknown buffer statistic.");
+            }
+        }
+    };
+
 }]);
 
 sandApp.directive('dashPlayer', function() {
@@ -87,8 +114,15 @@ sandApp.directive('dashPlayer', function() {
     };
 });
 
+
 sandApp.filter('filesize', function() {
   return function(input) {
     return filesize(input);
+  };
+});
+
+sandApp.filter('format_time', function() {
+  return function(d) {
+    return moment.duration(Math.round(d)).asSeconds();
   };
 });
