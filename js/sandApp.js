@@ -101,6 +101,10 @@ sandApp.controller('sandDashCtrl', ['$scope', '$sce', function($scope, $sce) {
         }
     };
 
+    $('.tooltip').tooltipster({
+        theme: 'tooltipster-punk'
+    });
+
 }]);
 
 sandApp.directive('dashPlayer', function() {

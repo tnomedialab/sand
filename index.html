@@ -7,7 +7,9 @@
 <link href="//fonts.googleapis.com/css?family=Varela" rel="stylesheet" />
 <link href="stylesheets/default.css" rel="stylesheet" media="all" />
 <link href="stylesheets/custom.css" rel="stylesheet" media="all" />
-<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
+<link href="//cdnjs.cloudflare.com/ajax/libs/tooltipster/3.3.0/css/tooltipster.min.css" rel="stylesheet" />
+<link href="//cdnjs.cloudflare.com/ajax/libs/tooltipster/3.3.0/css/themes/tooltipster-punk.min.css" rel="stylesheet" />
 <!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
 
 <div id="wrapper" ng-app="sandApp">
@@ -85,9 +87,9 @@
                <table style="width:100%;table-layout:fixed;">
                  <thead>
                    <tr>
-                     <th scope="col"><span class="fa fa-3x fa-users"/></th>
-                     <th scope="col"><span class="fa fa-3x fa-film"/></th>
-                     <th scope="col"><span class="fa fa-3x fa-download"/></th>
+                     <th scope="col"><span class="fa fa-3x fa-users tooltip" title="Number of connected clients"/></th>
+                     <th scope="col"><span class="fa fa-3x fa-film tooltip" title="Number of downloaded segments"/></th>
+                     <th scope="col"><span class="fa fa-3x fa-download tooltip" title="Amount video data downloaded"/></th>
                    </tr>
                  </thead>
                  <tbody>
@@ -103,9 +105,9 @@
                    <tr>
                    </tr>
                    <tr>
-                     <th scope="col">Shorter buffer</th>
-                     <th scope="col">Longer buffer</th>
-                     <th scope="col">Average buffer</th>
+                     <th scope="col" class="tooltip" title="The shortest buffer among all connected clients">Shortest buffer</th>
+                     <th scope="col" class="tooltip" title="The longest buffer among all connected clients">Longest buffer</th>
+                     <th scope="col" class="tooltip" title="The average buffer length over all connected clients">Average buffer</th>
                    </tr>
                  </thead>
                  <tbody>
@@ -158,5 +160,6 @@
 
 <script src="//cdn.filesizejs.com/filesize.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/tooltipster/3.3.0/js/jquery.tooltipster.min.js"></script>
 <script src="js/sandApp.js"></script>
 
